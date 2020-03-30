@@ -1,0 +1,97 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "COVID OPEN API",
+    "description": "Simple API that provides real-time-data of total cases and deaths of COVID-19",
+    "contact": {
+      "email": "sfdcnads@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Read more @ ForcePanda",
+    "url": "http://forcepanda.wordpress.com/"
+  },
+  "host": "covid19-open.herokuapp.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/cases/{country}": {
+      "get": {
+        "tags": [
+          "Total cases by country"
+        ],
+        "summary": "Total cases by country",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "description": "Name of country (English)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/caseCountResponse"
+            }
+          }
+        }
+      }
+    },
+    "/deaths/{country}": {
+      "get": {
+        "tags": [
+          "Death count by country"
+        ],
+        "summary": "Death count by country",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "description": "Name of country (English)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/deathCountResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "caseCountResponse": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "cases": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "deathCountResponse": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "deaths": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}
