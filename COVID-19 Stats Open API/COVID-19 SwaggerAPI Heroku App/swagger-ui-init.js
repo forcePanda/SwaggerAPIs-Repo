@@ -14,7 +14,7 @@ window.onload = function() {
     "title": "COVID OPEN API",
     "description": "Simple API that provides real-time-data of total cases and deaths of COVID-19",
     "contact": {
-      "email": "sfdcnads@gmail.com"
+      "email": "forcepanda07@gmail.com"
     },
     "version": "1.0.0"
   },
