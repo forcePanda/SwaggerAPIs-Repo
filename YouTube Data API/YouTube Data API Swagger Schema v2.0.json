@@ -1,0 +1,250 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "YouTube",
+      "description": "Supports core YouTube features, such as uploading videos, creating and managing playlists, searching for content, and much more.",
+      "contact": {
+        "email": "forcepanda07@gmail.com"
+      },
+      "version": "1.0.0"
+    },
+    "externalDocs": {
+      "description": "Read more @ ForcePanda",
+      "url": "http://forcepanda.wordpress.com/"
+    },
+    "host": "www.googleapis.com",
+    "basePath": "/youtube/v3",
+    "schemes": [
+      "https"
+    ],
+    
+    "paths": {
+      "/search": {
+        "get": {
+          "description": "Returns a collection of search results that match the query parameters specified in the API request. By default, a search result set identifies matching video, channel, and playlist resources, but you can also configure queries to only retrieve a specific type of resource.",
+          "operationId": "Search Videos",
+          "parameters": [
+            {
+              "description": "API key for authenticating the API callouts.",
+              "in": "query",
+              "name": "key",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": "The part parameter specifies a comma-separated list of one or more search resource properties that the API response will include. Set the parameter value to snippet.",
+              "in": "query",
+              "name": "part",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "description": "The maxResults parameter specifies the maximum number of items that should be returned in the result set.",
+              "in": "query",
+              "name": "maxResults",
+              "type": "integer"
+            },
+            {
+              "description": "The order parameter specifies the method that will be used to order resources in the API response.",
+              "in": "query",
+              "name": "order",
+              "type": "string",
+              "enum": [
+                  "date",
+                  "rating",
+                  "relevance",
+                  "title",
+                  "videoCount",
+                  "viewCount"
+              ]
+            },
+            {
+              "description": "The publishedAfter parameter indicates that the API response should only contain resources created after the specified time. The value is an RFC 3339 formatted date-time value (1970-01-01T00:00:00Z).",
+              "in": "query",
+              "name": "publishedAfter",
+              "type": "string"
+            },
+            {
+              "description": "The publishedBefore parameter indicates that the API response should only contain resources created before the specified time. The value is an RFC 3339 formatted date-time value (1970-01-01T00:00:00Z).",
+              "in": "query",
+              "name": "publishedBefore",
+              "type": "string"
+            },
+            {
+              "description": "The q parameter specifies the query term to search for.\n\nYour request can also use the Boolean NOT (-) and OR (|) operators to exclude videos or to find videos that are associated with one of several search terms. For example, to search for videos matching either \"boating\" or \"sailing\", set the q parameter value to boating|sailing. Similarly, to search for videos matching either \"boating\" or \"sailing\" but not \"fishing\", set the q parameter value to boating|sailing -fishing. Note that the pipe character must be URL-escaped when it is sent in your API request. The URL-escaped value for the pipe character is %7C.",
+              "in": "query",
+              "name": "q",
+              "type": "string",
+              "required" : true
+            },
+            {
+              "description": "The regionCode parameter instructs the API to return search results for the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.",
+              "in": "query",
+              "name": "regionCode",
+              "type": "string"
+            },
+            {
+              "description": "The relevanceLanguage parameter instructs the API to return search results that are most relevant to the specified language. The parameter value is typically an ISO 639-1 two-letter language code. However, you should use the values zh-Hans for simplified Chinese and zh-Hant for traditional Chinese. Please note that results in other languages will still be returned if they are highly relevant to the search query term.",
+              "in": "query",
+              "name": "relevanceLanguage",
+              "type": "string"
+            },
+            {
+              "description": "The safeSearch parameter indicates whether the search results should include restricted content as well as standard content.",
+              "in": "query",
+              "name": "safeSearch",
+              "enum": [
+                  "moderate",
+                  "none",
+                  "strict"
+                ],
+                "type": "string"
+            },
+            {
+              "description": "The type parameter restricts a search query to only retrieve a particular type of resource. The value is a comma-separated list of resource types.",
+              "in": "query",
+              "name": "type",
+              "default": "video,channel,playlist",
+              "type": "string"
+            },
+            {
+              "description": "The videoDefinition parameter lets you restrict a search to only include either high definition (HD) or standard definition (SD) videos. HD videos are available for playback in at least 720p, though higher resolutions, like 1080p, might also be available. If you specify a value for this parameter, you must also set the type parameter's value to video.",
+              "in": "query",
+              "name": "videoDefinition",
+              "enum": [
+                  "any",
+                  "high",
+                  "standard"
+              ],
+              "type": "string"
+            },
+            {
+              "description": "The videoDuration parameter filters video search results based on their duration. If you specify a value for this parameter, you must also set the type parameter's value to video.",
+              "in": "query",
+              "name": "videoDuration",
+              "enum": [
+                  "any",
+                  "long",
+                  "medium",
+                  "short"
+              ],
+              "type": "string"
+            },
+            {
+              "description": "The videoEmbeddable parameter lets you to restrict a search to only videos that can be embedded into a webpage. If you specify a value for this parameter, you must also set the type parameter's value to video.",
+              "in": "query",
+              "name": "videoEmbeddable",
+              "enum": [
+                  "any",
+                  "true"
+              ],
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "schema": {
+                    "$ref": "#/definitions/SearchListResponse"
+              },
+              "description": "Successful response"
+            }
+          },
+          "tags": [
+            "Search Videos"
+          ]
+        }
+      }
+    },
+    "definitions": {
+      "SearchListResponse": {
+          "type": "object",
+          "properties": {
+            "etag": {
+              "description": "Etag of this resource.",
+              "type": "string"
+            },
+            "pageInfo" : {
+              "$ref" : "#/definitions/PageInfo"
+            },
+            "items": {
+              "description": "A list of results that match the search criteria.",
+              "items": {
+                "$ref": "#/definitions/SearchResult"
+              },
+              "type": "array"
+            }
+          }
+      },
+      "PageInfo": {
+          "description": "Paging details for lists of resources, including total number of items available and number of resources returned in a single page.",
+          "properties": {
+            "resultsPerPage": {
+              "description": "The number of results included in the API response.",
+              "format": "int32",
+              "type": "integer"
+            },
+            "totalResults": {
+              "description": "The total number of results in the result set.",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+      },
+      "SearchResult": {
+          "description": "A search result contains information about a YouTube video, channel, or playlist that matches the search parameters specified in an API request. While a search result points to a uniquely identifiable resource, like a video, it does not have its own persistent data.",
+          "properties": {
+            "etag": {
+              "description": "Etag of this resource.",
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/definitions/ResourceId",
+              "description": "The id object contains information that can be used to uniquely identify the resource that matches the search request."
+            },
+            "snippet": {
+              "$ref": "#/definitions/SearchResultSnippet",
+              "description": "The snippet object contains basic details about a search result, such as its title or description. For example, if the search result is a video, then the title will be the video's title and the description will be the video's description."
+            }
+          },
+          "type": "object"
+        },
+        "SearchResultSnippet": {
+          "description": "Basic details about a search result, including title, description and thumbnails of the item referenced by the search result.",
+          "properties": {
+            "channelId": {
+              "description": "The value that YouTube uses to uniquely identify the channel that published the resource that the search result identifies.",
+              "type": "string"
+            },
+            "channelTitle": {
+              "description": "The title of the channel that published the resource that the search result identifies.",
+              "type": "string"
+            },
+            "description": {
+              "description": "A description of the search result.",
+              "type": "string"
+            },
+            "publishedAt": {
+              "description": "The creation date and time of the resource that the search result identifies. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "title": {
+              "description": "The title of the search result.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "ResourceId": {
+          "description": "A resource id is a generic reference that points to another YouTube resource.",
+          "properties": {
+            "videoId": {
+              "description": "The ID that YouTube uses to uniquely identify the referred resource, if that resource is a video. This property is only present if the resourceId.kind value is youtube#video.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+    }
+  }
