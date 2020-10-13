@@ -1,12 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-      "title": "YouTube",
-      "description": "Supports core YouTube features, such as uploading videos, creating and managing playlists, searching for content, and much more.",
+      "title": "YouTube Data OpenAPI 2.0 Spec",
+      "description": "Supports searching for content on YouTube.\n Created by Narender Singh",
       "contact": {
-        "email": "forcepanda07@gmail.com"
+        "name" : "Forcepanda",
+        "url" : "https://forcepanda.wordpress.com/"
       },
-      "version": "1.0.0"
+      "version": "1.0"
     },
     "externalDocs": {
       "description": "Read more @ ForcePanda",
