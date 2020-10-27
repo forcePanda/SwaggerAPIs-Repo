@@ -1,0 +1,172 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Google Cloud Vision Swagger API ",
+      "version": "1.0",
+      "description": "Supports extracting text from an image via Base64 encoded string or url.\n Created by Narender Singh",
+      "contact": {
+        "name" : "Forcepanda",
+        "url" : "https://forcepanda.wordpress.com/"
+      }
+    },
+    "host": "vision.googleapis.com",
+    "schemes": ["https"],
+    "basePath" : "/v1",
+    "paths": {
+      "/images:annotate": {
+        "post": {
+          "operationId": "Extract Text",
+          "parameters":[
+            {
+              "in" : "body",
+              "name" : "requests",
+              "schema" : {
+                "$ref" : "#/definitions/requestBody"
+              }
+            },
+            {
+              "description": "API key for authenticating the API callouts.",
+              "name" : "key",
+              "in" : "query",
+              "type" : "string",
+              "required" : true
+            }
+            
+          ],
+          "responses" : {
+            "200" : {
+              "schema" : {
+                    "$ref" : "#/definitions/response"
+              },
+              "description" : "Successful response"
+            },
+            "401" : {
+              "description" : "Authorization failed, Invalid(or Expired) Session.",
+              "schema" : {
+                "$ref" : "#/definitions/errorResponse"
+              }
+            },
+            "400" : {
+              "description" : "Bad Request.",
+              "schema" : {
+                "$ref" : "#/definitions/errorResponse"
+              }
+            },
+            "403" : {
+              "description" : "Forbidden",
+              "schema" : {
+                "$ref" : "#/definitions/errorResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "requestBody" : {
+        "type" : "object",
+        "properties" : {
+          "requests" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/request"
+            }
+          }
+        }
+      },
+      "request" : {
+        "type" : "object",
+        "properties" : {
+          "image" : {
+            "$ref" : "#/definitions/image"
+          },
+          "features" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/feature"
+            }
+          }
+        }
+      },
+      "image" : {
+        "type" : "object",
+        "properties" : {
+          "content" : {
+            "type" : "string"
+          },
+          "source" : {
+            "type" : "object",
+            "properties" : {
+              "imageUri" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "feature" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          }
+        }
+      },
+      "response": {
+          "type": "object",
+          "properties" : {
+            "responses" : {
+              "type" : "array",
+              "items": {
+                "$ref" : "#/definitions/rspLst"
+              }
+            }
+          }
+      },
+      "rspLst" : {
+        "type" : "object",
+        "properties" : {
+          "textAnnotations" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/wordDetail"
+            }
+          },
+          "fullTextAnnotation" : {
+            "type" : "object",
+            "properties" : {
+              "text" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "wordDetail" : {
+        "type" : "object",
+        "properties" : {
+          "locale" : {
+            "type" : "string"
+          },
+          "description": {
+            "type" : "string"
+          }
+        }
+      },
+      "errorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
