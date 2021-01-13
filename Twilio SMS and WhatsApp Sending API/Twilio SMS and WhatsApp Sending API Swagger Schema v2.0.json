@@ -1,0 +1,152 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Twilio API",
+    "description": "Twilio REST API",
+    "version": "1.0.0"
+  },
+  "host": "api.twilio.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/2010-04-01",
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/x-www-form-urlencoded"
+  ],
+  "paths": {
+    "/Accounts/{AccountSid}/Messages.json": {
+      "post": {
+        "summary": "Send a new outgoing message",
+        "operationId": "Send SMS or WhatsApp message",
+        "parameters": [
+          {
+            "name": "AccountSid",
+            "in": "path",
+            "description": "The Account SID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "To",
+            "in": "formData",
+            "description": "The destination phone number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "From",
+            "in": "formData",
+            "description": "A Twilio phone number (in E.164 format) or alphanumeric sender ID enabled for the type of message you wish to send",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "MessagingServiceSid",
+            "in": "formData",
+            "description": "The 34 character unique id of the Messaging Service you want to associate with this Message",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "formData",
+            "description": "The text of the message you want to send, limited to 1600 characters",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful GET operation"
+          },
+          "201": {
+            "description": "Successful POST operation",
+            "schema": {
+              "$ref": "#/definitions/resp201"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "more_info": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "resp201": {
+      "type": "object",
+      "properties": {
+        "account_sid": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "date_sent": {
+          "type": "string"
+        },
+        "error_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "messaging_service_sid": {
+          "type": "string"
+        },
+        "sid": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "subresource_uris": {
+          "type": "object",
+          "properties": {
+            "media": {
+              "type": "string"
+            }
+          }
+        },
+        "to": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
